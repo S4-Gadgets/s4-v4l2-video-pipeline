@@ -1,0 +1,16 @@
+# Maintainer: Michael Scott <support@s4gadgets.com>
+pkgname=s4-v4l2-driver-dkms
+pkgver=1.0
+pkgrel=1
+pkgdesc="S4-Gadgets AD9984A Adaptive V4L2 Driver with TC358748 CSI2 bridge (DKMS)"
+arch=('any')
+url="https://www.s4gadgets.com/"
+license=('GPL')
+depends=('dkms')
+source=("s4-v4l2-driver-dkms.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+    mkdir -p "$pkgdir/usr/src/s4-v4l2-driver-1.0"
+    cp -r "$srcdir/source"/* "$pkgdir/usr/src/s4-v4l2-driver-1.0/"
+}

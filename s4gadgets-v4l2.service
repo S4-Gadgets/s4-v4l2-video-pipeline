@@ -1,6 +1,0 @@
-[Unit]
-Description=S4-Gadgets V4L2 Service
-[Service]
-ExecStart=/usr/bin/s4gadgets-v4l2-install
-[Install]
-WantedBy=multi-user.target
