@@ -9,9 +9,8 @@
 
 ```bash
 git clone https://github.com/S4-Gadgets/s4gadgets-vga-csi2-driver.git
-cd s4-v4l2-video-pipeline
-chmod +x scripts/setup.sh
-sudo ./scripts/setup.sh
+chmod +x s4gadgets-vga-csi2-driver/scripts/setup.sh
+sudo ./s4gadgets-vga-csi2-driver/scripts/setup.sh
 sudo reboot
 ```
 
@@ -85,7 +84,7 @@ This summarizes:
 ## 🧹 Uninstall
 
 ```bash
-sudo ./scripts/uninstall.sh
+sudo ./s4gadgets-vga-csi2-driver/scripts/uninstall.sh
 sudo reboot
 ```
 
