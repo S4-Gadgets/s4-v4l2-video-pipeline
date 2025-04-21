@@ -4,10 +4,10 @@ set -e
 echo "[S4] Uninstalling S4-Gadgets Adaptive Video Pipeline..."
 
 # Remove overlay config from boot config
-sudo sed -i '/dtoverlay=s4-video-pipeline/d' /boot/config.txt
+sudo sed -i '/dtoverlay=s4-video-pipeline-overlay/d' /boot/config.txt
 
 # Delete overlay binary
-sudo rm -f /boot/overlays/s4-video-pipeline.dtbo
+sudo rm -f /boot/overlays/s4-video-pipeline-overlay.dts
 
 # Remove udev rule
 sudo rm -f /etc/udev/rules.d/99-s4-v4l2.rules

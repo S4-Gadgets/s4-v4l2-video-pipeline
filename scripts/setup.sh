@@ -4,9 +4,9 @@ set -e
 echo "[S4] Installing S4-Gadgets Adaptive Video Pipeline..."
 
 # Copy device tree overlay
-sudo cp s4-video-pipeline.dtbo /boot/overlays/
+sudo cp s4-video-pipeline-overlay.dts /boot/overlays/
 sudo sed -i '/dtoverlay=s4-video-pipeline/d' /boot/config.txt
-echo 'dtoverlay=s4-video-pipeline' | sudo tee -a /boot/config.txt
+echo 'dtoverlay=s4-video-pipeline-overlay' | sudo tee -a /boot/config.txt
 
 # Install DKMS modules
 sudo dkms add ./s4-ad9984a
