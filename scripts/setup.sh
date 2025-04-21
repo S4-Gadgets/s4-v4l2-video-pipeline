@@ -2,25 +2,27 @@
 set -e
 
 echo "[S4] Installing S4-Gadgets Adaptive Video Pipeline..."
+cd s4gadgets-vga-csi2-driver
 
 # Copy device tree overlay
-cd s4gadgets-vga-csi2-driver
 sudo cp ./overlay/s4-video-pipeline-overlay.dts /boot/overlays/
 sudo sed -i '/dtoverlay=s4-video-pipeline-overlay/d' /boot/config.txt
 echo 'dtoverlay=s4-video-pipeline-overlay' | sudo tee -a /boot/config.txt
 
 # Install DKMS modules
-cd dkms
+mkdir /usr/src/s4videopipeline-1.0/
+cp ./dkms/dkms.conf /usr/src/s4videopipeline-1.0/dkms.conf
+cp ./Makefile /usr/src/s4videopipeline-1.0/Makefile
 
-sudo dkms add ../drivers/s4-ad9984a
-sudo dkms build s4-ad9984a/1.0
-sudo dkms install s4-ad9984a/1.0
+mkdir /usr/src/s4videopipeline-1.0/drivers/
+cp ./drivers/*.* /usr/src/s4videopipeline-1.0/drivers/
 
-sudo dkms add ../drivers/s4-tc358748
-sudo dkms build s4-tc358748/1.0
-sudo dkms install s4-tc358748/1.0
+mkdir /usr/src/s4videopipeline-1.0/include/
+cp ./include/*.* /usr/src/s4videopipeline-1.0/include/
 
-cd ..
+sudo dkms add s4videopipeline/1.0
+sudo dkms build s4videopipeline/1.0
+sudo dkms install s4videopipeline/1.0
 
 # Install udev rules
 sudo cp ./udev/99-s4-v4l2.rules /etc/udev/rules.d/
