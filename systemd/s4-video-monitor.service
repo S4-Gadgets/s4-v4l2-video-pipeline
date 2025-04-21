@@ -1,0 +1,12 @@
+[Unit]
+Description=S4 Video Signal Monitor
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/s4-video-monitor.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

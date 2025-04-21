@@ -1,0 +1,13 @@
+[Unit]
+Description=S4 Debug Mode Toggle
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/s4-video-debug.sh
+RemainAfterExit=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+# Udev rules for labeling S4 video pipeline devices
+# Automatically symlink video devices for easy access and identification
+
+ACTION=="add", SUBSYSTEM=="video4linux", ATTR{name}=="s4_ad9984a", SYMLINK+="video-s4-in"
+ACTION=="add", SUBSYSTEM=="video4linux", ATTR{name}=="s4_tc358748", SYMLINK+="video-s4-bridge"
+
+# Set group permissions if needed (optional)
+KERNEL=="video[0-9]*", GROUP="video", MODE="0660"

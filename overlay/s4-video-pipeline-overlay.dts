@@ -1,0 +1,110 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2835";
+
+    fragment@0 {
+        target = <&i2c_csi_dsi>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            ad9984a: ad9984a@21 {
+                compatible = "s4,ad9984a";
+                reg = <0x21>;
+                status = "okay";
+                pinctrl-names = "default";
+                pinctrl-0 = <&i2c_csi_dsi_pins>;
+
+                /* Adaptive telemetry controls */
+                auto-timing-detect; /* Automatically detects timing parameters (hsync/vsync, porch values, etc.) based on active analog VGA signal and updates runtime pipeline settings accordingly. */
+                auto-framerate-detect;
+                signal-stability-scan;
+                enable-v4l2-controls;
+                enable-v4l2-telemetry-controls;
+
+                /* Diagnostics and Debugging */
+                enable-debug-telemetry;
+                enable-v4l2-private-controls;
+                enable-sysfs-debug;
+                enable-failsafe-mode;
+                enable-i2c-state-dump;
+                enable-frame-info-report;
+                enable-debug-toggle;
+
+                port {
+                    ad9984a_out: endpoint {
+                        remote-endpoint = <&tc358748_in>;
+                        bus-width = <24>;
+                        data-shift = <0>;
+                        hsync-active = <1>;
+                        vsync-active = <1>;
+                        pclk-sample = <1>;
+                        data-enable-active = <1>;
+                        bus-type = <5>; /* V4L2_MBUS_PARALLEL */
+                        hsync-len = <0>; /* auto: dynamically detected */
+                        vsync-len = <0>; /* auto: dynamically detected */
+                        hback-porch = <0>; /* auto: dynamically detected */
+                        vback-porch = <0>; /* auto: dynamically detected; recommend logging or exporting via debugfs or V4L2 telemetry for signal tuning */
+                        hfront-porch = <0>; /* auto: dynamically detected */
+                        vfront-porch = <0>; /* auto: dynamically detected */
+                    };
+                };
+            };
+
+            tc358748: tc358748@0f {
+                compatible = "s4,tc358748";
+                reg = <0x0f>;
+                status = "okay";
+
+                enable-bridge-mode;
+                adaptive-clock-scan; /* Enables real-time clock frequency sampling on the CSI bridge. Monitors and adjusts to input pixel clock drift to maintain sync stability. Particularly useful for analog or unstable sources. */
+                timing-snoop;
+
+                /* Optional signaling and readiness feedback */
+                passthrough-ready-status; /* Signals to the host when the bridge has locked to a stable signal and CSI passthrough is enabled. */
+                clock-lock-indicator;    /* Indicates whether the incoming clock has stabilized. Can be linked to debugfs or V4L2 control for monitoring. */
+
+                /* Diagnostics and Debugging */
+                enable-debug-telemetry;
+                enable-v4l2-private-controls;
+                enable-sysfs-debug;
+                enable-failsafe-mode;
+                enable-i2c-state-dump;
+                enable-frame-info-report;
+                enable-debug-toggle;
+
+                port@0 {
+                    tc358748_in: endpoint {
+                        remote-endpoint = <&ad9984a_out>;
+                        bus-width = <24>;
+                        data-shift = <0>;
+                        hsync-active = <1>;
+                        vsync-active = <1>;
+                        pclk-sample = <1>;
+                        data-enable-active = <1>;
+                        bus-type = <5>; /* V4L2_MBUS_PARALLEL */
+                    };
+                };
+
+                port@1 {
+                    tc358748_out: endpoint {
+                        bus-type = <4>; /* V4L2_MBUS_CSI2_DPHY */
+                        remote-endpoint = <&csi_input>;
+                    };
+                };
+            };
+        };
+    };
+
+    fragment@1 {
+        target = <&csi0_port>; // Or &csi1_port depending on platform
+        __overlay__ {
+            csi_input: endpoint {
+                remote-endpoint = <&tc358748_out>;
+                data-lanes = <1 2>; // Adjust based on actual hardware
+            };
+        };
+    };
+};

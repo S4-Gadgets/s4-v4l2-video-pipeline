@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer to Trigger S4 Debug Toggle
+
+[Timer]
+OnBootSec=45sec
+Unit=s4-debug-toggle.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target
