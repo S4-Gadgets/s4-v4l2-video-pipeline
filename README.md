@@ -8,7 +8,7 @@
 ## 🚀 Quickstart
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/s4-v4l2-video-pipeline.git
+git clone https://github.com/S4-Gadgets/s4gadgets-vga-csi2-driver.git
 cd s4-v4l2-video-pipeline
 chmod +x scripts/setup.sh
 sudo ./scripts/setup.sh
