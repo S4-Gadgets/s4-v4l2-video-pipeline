@@ -1,7 +1,5 @@
 # S4-Gadgets Adaptive Video Pipeline
 
-[![CI](https://github.com/YOUR-USERNAME/s4-v4l2-video-pipeline/actions/workflows/build-test.yml/badge.svg)](https://github.com/YOUR-USERNAME/s4-v4l2-video-pipeline/actions)
-
 > Adaptive V4L2 video capture pipeline for Raspberry Pi using AD9984A and TC358748.  
 > Includes automatic signal detection, telemetry, CSI bridge, and debug tools.
 
