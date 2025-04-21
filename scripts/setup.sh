@@ -4,6 +4,7 @@ set -e
 echo "[S4] Installing S4-Gadgets Adaptive Video Pipeline..."
 
 # Copy device tree overlay
+cd s4gadgets-vga-csi2-driver
 sudo cp ./overlay/s4-video-pipeline-overlay.dts /boot/overlays/
 sudo sed -i '/dtoverlay=s4-video-pipeline-overlay/d' /boot/config.txt
 echo 'dtoverlay=s4-video-pipeline-overlay' | sudo tee -a /boot/config.txt
