@@ -9,15 +9,15 @@ This project enables full analog VGA-to-CSI capture via V4L2, with real-time tim
 - Raspberry Pi (or compatible) with CSI-2 interface enabled
 - I²C enabled (`raspi-config` or `/boot/config.txt`)
 - Kernel headers installed (`sudo pacman -S linux-headers` or equivalent)
-- `v4l-utils`, `shellcheck`, and `make` available
+- `v4l-utils`, `DKMS`, and `make` available
 
 ---
 
 ## 📦 Quick Install
 
 ```bash
-git clone https://github.com/S4-Gadgets/s4gadgets-vga-csi2-driver.git
-cd s4gadgets-vga-csi2-driver
+git clone https://github.com/S4-Gadgets/s4-v4l2-video-pipeline.git
+cd s4-v4l2-video-pipeline
 chmod +x scripts/setup.sh
 sudo ./scripts/setup.sh
 sudo reboot

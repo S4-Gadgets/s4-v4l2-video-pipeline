@@ -14,8 +14,7 @@ sudo rm -f /etc/udev/rules.d/99-s4-v4l2.rules
 sudo udevadm control --reload-rules
 
 # Uninstall DKMS modules
-dkms remove s4-ad9984a/1.0 --all || true
-dkms remove s4-tc358748/1.0 --all || true
+dkms remove s4videopipeline/1.0 --all || true
 
 # Stop and remove monitor service
 sudo systemctl stop s4-video-monitor || true
@@ -33,4 +32,9 @@ sudo rm -f /etc/systemd/system/s4-debug-toggle.service
 sudo rm -f /etc/systemd/system/s4-debug-toggle.timer
 sudo systemctl daemon-reexec
 
+# Delete downloaded s4-gadgets video drivers content
+sudo rm -r /s4-v4l2-video-pipeline
+
 echo "[S4] Uninstall complete. Please reboot to finalize cleanup."
+
+

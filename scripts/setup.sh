@@ -2,7 +2,7 @@
 set -e
 
 echo "[S4] Installing S4-Gadgets Adaptive Video Pipeline..."
-cd s4gadgets-vga-csi2-driver
+cd s4-v4l2-video-pipeline
 
 # Copy device tree overlay
 sudo cp ./overlay/s4-video-pipeline-overlay.dts /boot/overlays/
@@ -35,7 +35,6 @@ sudo systemctl daemon-reexec
 sudo systemctl enable s4-video-monitor
 sudo systemctl start s4-video-monitor
 
-
 # Install debug toggle tool
 sudo cp ./scripts/s4-video-debug.sh /usr/local/bin/
 sudo chmod +x /usr/local/bin/s4-video-debug.sh
@@ -46,4 +45,5 @@ sudo cp ./systemd/s4-debug-toggle.timer /etc/systemd/system/
 sudo systemctl daemon-reexec
 sudo systemctl enable s4-debug-toggle.timer
 
+cd /
 echo "[S4] Installation complete. Reboot recommended."

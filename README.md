@@ -8,9 +8,9 @@
 ## 🚀 Quickstart
 
 ```bash
-git clone https://github.com/S4-Gadgets/s4gadgets-vga-csi2-driver.git
-chmod +x s4gadgets-vga-csi2-driver/scripts/setup.sh
-sudo ./s4gadgets-vga-csi2-driver/scripts/setup.sh
+git clone https://github.com/S4-Gadgets/s4-v4l2-video-pipeline.git
+chmod +x s4-v4l2-video-pipeline/scripts/setup.sh
+sudo ./s4-v4l2-video-pipeline/scripts/setup.sh
 sudo reboot
 ```
 
