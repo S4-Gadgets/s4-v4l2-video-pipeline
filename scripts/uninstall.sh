@@ -38,3 +38,25 @@ sudo rm -r /usr/src/s4videopipeline*
 sudo rm -r /s4-v4l2-video-pipeline*
 
 echo "[S4] Uninstall complete. Please reboot to finalize cleanup."
+
+
+
+
+
+
+
+##### MANUAL PROCESS OF FORCIBLY CLEANING UP DKMS ENTIRES ####
+
+## First try the graceful method
+#dkms remove s4videopipeline/1.0 --all || true
+
+## Remove the broken entry by force
+# sudo rm -rf /var/lib/dkms/%MODULE_NAME%/1.0
+#sudo rm -rf /var/lib/dkms/s4videopipeline/1.0 # Possible Example
+
+## Check the status again, no more "broken" entries listed
+#dkms status
+
+## Clean up any leftover bad links (optional safety)
+# sudo find /usr/src -name "*%MODULE_NAME%*" -exec rm -rf {} +
+#sudo find /usr/src -name "*s4videopipeline*" -exec rm -rf {} + # Possible Example

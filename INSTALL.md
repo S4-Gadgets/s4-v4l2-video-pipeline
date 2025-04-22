@@ -24,22 +24,6 @@ sudo reboot
 
 ---
 
-## 📂 Overlay Setup
-
-Make sure `/boot/config.txt` contains:
-
-```
-dtoverlay=s4-video-pipeline-overlay
-```
-
-Then place the `.dts` overlay file in `/boot/overlays/` and compile it if needed:
-
-```bash
-sudo cp overlay/s4-video-pipeline-overlay.dts /boot/overlays/
-```
-
----
-
 ## 🧪 Verify System Status
 
 After reboot, run:
@@ -65,30 +49,14 @@ This will enable all telemetry flags for 1 hour and auto-disable.
 
 ---
 
-## 🔁 Auto Monitor Resolution Changes
-
-The `s4-video-monitor.service` watches timing and stability and can be enabled:
-
-```bash
-sudo systemctl enable s4-video-monitor.service
-```
-
----
-
 ## 🧼 To Uninstall
 
 ```bash
-sudo ./scripts/uninstall.sh
+sudo /s4-v4l2-video-pipeline/scripts/uninstall.sh
 sudo reboot
 ```
 
 This removes all drivers, systemd services, debug utilities, and DKMS traces.
-
----
-
-## 💡 Pro Tip
-
-To rebuild automatically after kernel upgrades, use `dkms` with the included `dkms.conf`.
 
 ---
 

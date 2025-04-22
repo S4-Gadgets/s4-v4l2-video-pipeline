@@ -59,7 +59,6 @@ s4-status.sh
 ├── Makefile                 # Root makefile to build both modules
 ├── LICENSE                  # GPL v2 License
 ├── INSTALL.md               # Install instructions
-├── UNINSTALL.md             # Uninstall instructions
 └── README.md                # This file
 ```
 
