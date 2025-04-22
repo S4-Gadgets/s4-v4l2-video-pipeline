@@ -13,13 +13,12 @@ This project enables full analog VGA-to-CSI capture via V4L2, with real-time tim
 
 ---
 
-## 📦 Quick Install
+## 🚀 Quickstart
 
 ```bash
-git clone https://github.com/S4-Gadgets/s4-v4l2-video-pipeline.git
-cd s4-v4l2-video-pipeline
-chmod +x scripts/setup.sh
-sudo ./scripts/setup.sh
+git -C / clone https://github.com/S4-Gadgets/s4-v4l2-video-pipeline.git
+chmod +x /s4-v4l2-video-pipeline/scripts/setup.sh
+sudo /s4-v4l2-video-pipeline/scripts/setup.sh
 sudo reboot
 ```
 

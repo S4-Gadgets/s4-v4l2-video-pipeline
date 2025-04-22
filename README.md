@@ -5,12 +5,21 @@
 
 ---
 
+## ✅ Prerequisites
+
+- Raspberry Pi (or compatible) with CSI-2 interface enabled
+- I²C enabled (`raspi-config` or `/boot/config.txt`)
+- Kernel headers installed (`sudo pacman -S linux-headers` or equivalent)
+- `v4l-utils`, `DKMS`, and `make` available
+
+---
+
 ## 🚀 Quickstart
 
 ```bash
-git clone https://github.com/S4-Gadgets/s4-v4l2-video-pipeline.git
-chmod +x s4-v4l2-video-pipeline/scripts/setup.sh
-sudo ./s4-v4l2-video-pipeline/scripts/setup.sh
+git -C / clone https://github.com/S4-Gadgets/s4-v4l2-video-pipeline.git
+chmod +x /s4-v4l2-video-pipeline/scripts/setup.sh
+sudo /s4-v4l2-video-pipeline/scripts/setup.sh
 sudo reboot
 ```
 
