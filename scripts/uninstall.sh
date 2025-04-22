@@ -31,8 +31,10 @@ sudo rm -f /etc/systemd/system/s4-debug-toggle.service
 sudo rm -f /etc/systemd/system/s4-debug-toggle.timer
 sudo systemctl daemon-reexec
 
-# Delete downloaded s4-gadgets video drivers content
+# Remove S4-Gadgets videopipeline drivers
 sudo rm -r /usr/src/s4videopipeline*
-sudo rm -r /s4-v4l2-video-pipeline
+
+# Remove S4-Gadgets videopipeline git repository download
+sudo rm -r /s4-v4l2-video-pipeline*
 
 echo "[S4] Uninstall complete. Please reboot to finalize cleanup."

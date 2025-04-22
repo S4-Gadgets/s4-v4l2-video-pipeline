@@ -2,11 +2,14 @@
 set -e
 
 echo "[S4] Installing S4-Gadgets Adaptive Video Pipeline..."
+cd /
+cd s4-v4l2-video-pipeline
 
 # Copy device tree overlay
 sudo cp ./overlay/s4-video-pipeline-overlay.dts /boot/overlays/
-sudo sed -i '/dtoverlay=s4-video-pipeline-overlay/d' /boot/config.txt
-echo 'dtoverlay=s4-video-pipeline-overlay' | sudo tee -a /boot/config.txt
+sudo sed -i '/dtoverlay=tc358743/d' /boot/config.txt # Remove common HDMI video device to free up device video0
+sudo sed -i '/dtoverlay=s4-video-pipeline-overlay/d' /boot/config.txt # Remove S4-Gadgets video pipeline encase this is a reinstall
+echo 'dtoverlay=s4-video-pipeline-overlay' | sudo tee -a /boot/config.txt # Add S4-Gadgets video pipeline to create video0
 
 # Install DKMS modules
 mkdir /usr/src/s4videopipeline-1.0/
