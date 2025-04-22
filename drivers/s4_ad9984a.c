@@ -26,6 +26,9 @@
 #define V4L2_CID_S4_VFP           (V4L2_CID_USER_BASE + 0x1105)
 #define V4L2_CID_S4_FRAMERATE     (V4L2_CID_USER_BASE + 0x1106)
 #define V4L2_CID_S4_PIXELCLOCK    (V4L2_CID_USER_BASE + 0x1107)
+#define V4L2_CID_S4_WIDTH		(V4L2_CID_PRIVATE_BASE + 0)
+#define V4L2_CID_S4_HEIGHT      (V4L2_CID_PRIVATE_BASE + 1)
+#define V4L2_CID_S4_FRAME_RATE  (V4L2_CID_PRIVATE_BASE + 2)
 
 static int debug_enabled = 0;
 
@@ -84,7 +87,7 @@ static int s4_ad9984a_s_stream(struct v4l2_subdev *sd, int enable)
 }
 
 static int s4_ad9984a_enum_mbus_code(struct v4l2_subdev *sd,
-                                     struct v4l2_subdev_pad_config *cfg,
+                                     struct v4l2_subdev_state *cfg,
                                      struct v4l2_subdev_mbus_code_enum *code)
 {
     if (code->index > 0)
@@ -95,7 +98,7 @@ static int s4_ad9984a_enum_mbus_code(struct v4l2_subdev *sd,
 }
 
 static int s4_ad9984a_get_fmt(struct v4l2_subdev *sd,
-                              struct v4l2_subdev_pad_config *cfg,
+                              struct v4l2_subdev_state *cfg,
                               struct v4l2_subdev_format *fmt)
 {
     struct s4_ad9984a_state *state = container_of(sd, struct s4_ad9984a_state, sd);
@@ -212,8 +215,7 @@ MODULE_DEVICE_TABLE(of, s4_ad9984a_of_match);
 
 static struct i2c_driver s4_ad9984a_i2c_driver = {
     .driver = {
-        .name = AD9984A_NAME,
-        .of_match_table = s4_ad9984a_of_match,
+        .name = "s4_ad9984a",
     },
     .probe = s4_ad9984a_probe,
     .remove = s4_ad9984a_remove,

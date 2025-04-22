@@ -1,6 +1,3 @@
-#ifndef S4_AD9984A_H
-#define S4_AD9984A_H
-
 #ifndef __S4_AD9984A_H__
 #define __S4_AD9984A_H__
 
@@ -30,4 +27,3 @@ struct s4_ad9984a_state {
 };
 
 #endif // __S4_AD9984A_H__
-#endif /* S4_AD9984A_H */
