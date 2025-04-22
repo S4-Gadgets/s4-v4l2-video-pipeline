@@ -23,7 +23,6 @@ sudo rm -f /usr/local/bin/s4-video-monitor.py
 sudo rm -f /etc/systemd/system/s4-video-monitor.service
 sudo systemctl daemon-reexec
 
-
 # Uninstall debug toggle tool and service
 sudo systemctl stop s4-debug-toggle.timer || true
 sudo systemctl disable s4-debug-toggle.timer || true
@@ -33,8 +32,7 @@ sudo rm -f /etc/systemd/system/s4-debug-toggle.timer
 sudo systemctl daemon-reexec
 
 # Delete downloaded s4-gadgets video drivers content
+sudo rm -r /usr/src/s4videopipeline*
 sudo rm -r /s4-v4l2-video-pipeline
 
 echo "[S4] Uninstall complete. Please reboot to finalize cleanup."
-
-

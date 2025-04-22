@@ -2,7 +2,6 @@
 set -e
 
 echo "[S4] Installing S4-Gadgets Adaptive Video Pipeline..."
-cd s4-v4l2-video-pipeline
 
 # Copy device tree overlay
 sudo cp ./overlay/s4-video-pipeline-overlay.dts /boot/overlays/
@@ -45,5 +44,4 @@ sudo cp ./systemd/s4-debug-toggle.timer /etc/systemd/system/
 sudo systemctl daemon-reexec
 sudo systemctl enable s4-debug-toggle.timer
 
-cd /
 echo "[S4] Installation complete. Reboot recommended."
