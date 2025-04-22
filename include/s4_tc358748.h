@@ -1,3 +1,6 @@
+#ifndef S4_TC358748_H
+#define S4_TC358748_H
+
 #ifndef __S4_TC358748_H__
 #define __S4_TC358748_H__
 
@@ -24,3 +27,4 @@ struct tc358748_state {
 };
 
 #endif // __S4_TC358748_H__
+#endif /* S4_TC358748_H */

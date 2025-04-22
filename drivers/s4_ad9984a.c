@@ -49,21 +49,7 @@ static const struct v4l2_ctrl_ops s4_ctrl_ops = {
 
 // Video sub-device state
 #define AD9984A_NAME "s4_ad9984a"
-struct s4_ad9984a_state {
-    struct v4l2_subdev sd;
-    struct v4l2_ctrl_handler ctrl_handler;
-    struct media_pad pad;
-    struct i2c_client *client;
-    struct regmap *regmap;
 
-    // Adaptive telemetry
-    u32 h_active;
-    u32 v_active;
-    u32 framerate;
-    u64 last_sync;
-    u32 hsync_len, vsync_len, hbp, vbp, hfp, vfp, fps, pixelclock;
-    struct v4l2_subdev_format format;
-};
 
 // Read video timing info
 static int s4_ad9984a_read_timing(struct s4_ad9984a_state *state)
@@ -182,7 +168,7 @@ static void create_debugfs_entries(struct s4_ad9984a_state *state)
 }
 
 // Probe function
-static int s4_ad9984a_probe(struct i2c_client *client)
+static int s4_ad9984a_probe(struct i2c_client *client, const struct i2c_device_id *id)
 {
     struct s4_ad9984a_state *state;
     struct v4l2_subdev *sd;
