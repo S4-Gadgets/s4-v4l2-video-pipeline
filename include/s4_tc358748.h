@@ -1,6 +1,3 @@
-#ifndef S4_TC358748_H
-#define S4_TC358748_H
-
 #ifndef __S4_TC358748_H__
 #define __S4_TC358748_H__
 
@@ -19,7 +16,6 @@ struct tc358748_state {
     u32 height;
     u32 framerate;
     u32 clock_rate;
-
     bool csi_active;
     bool bridge_enabled;
     bool clock_locked;
@@ -27,4 +23,3 @@ struct tc358748_state {
 };
 
 #endif // __S4_TC358748_H__
-#endif /* S4_TC358748_H */

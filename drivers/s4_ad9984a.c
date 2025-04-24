@@ -26,9 +26,6 @@
 #define V4L2_CID_S4_VFP           (V4L2_CID_USER_BASE + 0x1105)
 #define V4L2_CID_S4_FRAMERATE     (V4L2_CID_USER_BASE + 0x1106)
 #define V4L2_CID_S4_PIXELCLOCK    (V4L2_CID_USER_BASE + 0x1107)
-#define V4L2_CID_S4_WIDTH		(V4L2_CID_PRIVATE_BASE + 0)
-#define V4L2_CID_S4_HEIGHT      (V4L2_CID_PRIVATE_BASE + 1)
-#define V4L2_CID_S4_FRAME_RATE  (V4L2_CID_PRIVATE_BASE + 2)
 
 static int debug_enabled = 0;
 
@@ -179,6 +176,7 @@ static int s4_ad9984a_probe(struct i2c_client *client, const struct i2c_device_i
     state = devm_kzalloc(&client->dev, sizeof(*state), GFP_KERNEL);
     if (!state)
         return -ENOMEM;
+																				 
 
     sd = &state->sd;
     v4l2_i2c_subdev_init(sd, client, &s4_ad9984a_subdev_ops);
@@ -186,9 +184,9 @@ static int s4_ad9984a_probe(struct i2c_client *client, const struct i2c_device_i
     state->client = client;
 
     v4l2_ctrl_handler_init(&state->ctrl_handler, 4);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_WIDTH, 0, 8192, 1, 640);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_HEIGHT, 0, 8192, 1, 480);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_FRAME_RATE, 1, 240, 1, 60);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_WIDTH, 0, 8192, 1, 640);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_HEIGHT, 0, 8192, 1, 480);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_FRAMERATE, 1, 240, 1, 60);
     v4l2_ctrl_new_std(&state->ctrl_handler, &s4_ctrl_ops, V4L2_CID_S4_ENABLE_DEBUG, 0, 1, 1, 0);
     sd->ctrl_handler = &state->ctrl_handler;
 
@@ -199,6 +197,10 @@ static int s4_ad9984a_probe(struct i2c_client *client, const struct i2c_device_i
     create_debugfs_entries(state);
 
     dev_info(&client->dev, "AD9984A VGA decoder initialized\n");
+	
+	media_entity_pads_init(&sd->entity, 1, &state->pad);
+	return v4l2_async_register_subdev(sd);
+
     return 0;
 }
 
@@ -217,8 +219,7 @@ static struct i2c_driver s4_ad9984a_i2c_driver = {
     .driver = {
         .name = "s4_ad9984a",
     },
-    .probe = s4_ad9984a_probe,
-    .remove = s4_ad9984a_remove,
+    .probe = s4_ad9984a_probe
 };
 
 module_i2c_driver(s4_ad9984a_i2c_driver);
