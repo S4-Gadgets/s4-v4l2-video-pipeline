@@ -28,7 +28,9 @@ sudo cp /s4-v4l2-video-pipeline/udev/*.* /etc/udev/rules.d/
 sudo udevadm control --reload-rules
 
 # Install debug toggle tool
+sudo cp /s4-v4l2-video-pipeline/scripts/s4-status.sh /usr/local/bin/s4-status.sh
 sudo cp /s4-v4l2-video-pipeline/scripts/s4-video-debug.sh /usr/local/bin/s4-video-debug.sh
+sudo chmod +x /usr/local/bin/s4-status.sh
 sudo chmod +x /usr/local/bin/s4-video-debug.sh
 
 # Install and Enable Services for Monitoring and Debug
