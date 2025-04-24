@@ -21,6 +21,10 @@
 #define V4L2_CID_S4_CSI_ACTIVE       (V4L2_CID_USER_BASE + 0x1201)
 #define V4L2_CID_S4_BRIDGE_STATUS    (V4L2_CID_USER_BASE + 0x1202)
 
+#define V4L2_CID_S4_HSYNC_LEN     (V4L2_CID_USER_BASE + 0x1100)
+#define V4L2_CID_S4_VSYNC_LEN     (V4L2_CID_USER_BASE + 0x1101)
+#define V4L2_CID_S4_FRAMERATE     (V4L2_CID_USER_BASE + 0x1106)
+
 static int debug_enabled = 0;
 
 static int s4_s_ctrl(struct v4l2_ctrl *ctrl)
@@ -152,7 +156,8 @@ static void create_tc358748_debugfs_entries(struct tc358748_state *state)
     debugfs_create_file("timings", 0444, dir, state, &tc_debug_fops);
 }
 
-static int tc358748_probe(struct i2c_client *client, const struct i2c_device_id *id)
+static int tc358748_probe(struct i2c_client *client)
+// static int tc358748_probe(struct i2c_client *client, const struct i2c_device_id *id) *** failed to build
 {
     struct tc358748_state *state;
     struct v4l2_subdev *sd;
@@ -167,17 +172,12 @@ static int tc358748_probe(struct i2c_client *client, const struct i2c_device_id 
     state->client = client;
 
     v4l2_ctrl_handler_init(&state->ctrl_handler, 5);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_WIDTH, 0, 8192, 1, 640);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_HEIGHT, 0, 8192, 1, 480);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_FRAMERATE, 1, 240, 1, 60);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_HSYNC_LEN, 0, 8192, 1, 640);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_VSYNC_LEN, 0, 8192, 1, 480);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_FRAMERATE, 1, 240, 1, 60);
     s4_register_tc358748_telemetry_controls(&state->ctrl_handler, state);
     v4l2_ctrl_new_std(&state->ctrl_handler, &s4_ctrl_ops, V4L2_CID_S4_ENABLE_DEBUG, 0, 1, 1, 0);
     sd->ctrl_handler = &state->ctrl_handler;
-
-    state->pads[0].flags = MEDIA_PAD_FL_SINK;
-    state->pads[1].flags = MEDIA_PAD_FL_SOURCE;
-    sd->entity.function = MEDIA_ENT_F_VID_IF_BRIDGE;
-    media_entity_pads_init(&sd->entity, 2, state->pads);
 
     create_tc358748_debugfs_entries(state);
 
@@ -191,11 +191,6 @@ static int tc358748_probe(struct i2c_client *client, const struct i2c_device_id 
 	
 	return v4l2_async_register_subdev(sd);
 
-    return 0;
-}
-
-static int tc358748_remove(struct i2c_client *client)
-{
     return 0;
 }
 

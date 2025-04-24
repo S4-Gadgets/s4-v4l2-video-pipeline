@@ -183,8 +183,8 @@ static int s4_ad9984a_probe(struct i2c_client *client)
     state->client = client;
 
     v4l2_ctrl_handler_init(&state->ctrl_handler, 4);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_WIDTH, 0, 8192, 1, 640);
-    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_HEIGHT, 0, 8192, 1, 480);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_HSYNC_LEN, 0, 8192, 1, 640);
+    v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_VSYNC_LEN, 0, 8192, 1, 480);
     v4l2_ctrl_new_std(&state->ctrl_handler, NULL, V4L2_CID_S4_FRAMERATE, 1, 240, 1, 60);
     v4l2_ctrl_new_std(&state->ctrl_handler, &s4_ctrl_ops, V4L2_CID_S4_ENABLE_DEBUG, 0, 1, 1, 0);
     sd->ctrl_handler = &state->ctrl_handler;
@@ -203,11 +203,6 @@ static int s4_ad9984a_probe(struct i2c_client *client)
     return 0;
 }
 
-static int s4_ad9984a_remove(struct i2c_client *client)
-{
-    return 0;
-}
-
 static const struct of_device_id s4_ad9984a_of_match[] = {
     { .compatible = "analogdevices,ad9984a" },
     { }
@@ -218,8 +213,7 @@ static struct i2c_driver s4_ad9984a_i2c_driver = {
     .driver = {
         .name = "s4_ad9984a",
     },
-    .probe = s4_ad9984a_probe,
-	.remove = s4_ad9984a_remove
+    .probe = s4_ad9984a_probe
 };
 
 module_i2c_driver(s4_ad9984a_i2c_driver);
