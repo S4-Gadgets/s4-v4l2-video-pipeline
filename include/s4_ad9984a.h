@@ -14,6 +14,7 @@ struct s4_ad9984a_state {
     u32 h_active;
     u32 v_active;
     u32 framerate;
+	u64 last_sync;
 
     u32 hsync_len;
     u32 vsync_len;
